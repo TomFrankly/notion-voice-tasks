@@ -12,5 +12,6 @@ export const config = {
     notion_dbs: {
         tasks: process.env.NOTION_TASKS_DB,
 	    projects: process.env.NOTION_PROJECTS_DB,
-    }
+    },
+	secret: process.env.NOTION_VOICE_TASKS_SECRET,
 }

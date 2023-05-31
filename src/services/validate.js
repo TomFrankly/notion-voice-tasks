@@ -1,3 +1,4 @@
+import { config } from "../config/config.js"
 import Joi from "joi"
 import validator from "validator"
 import dayjs from "dayjs"
@@ -6,11 +7,16 @@ import emojiRegex from "emoji-regex"
 
 // Function to validate the user input from Shortcuts, Tasker, etc.
 export function validateUserInput(data) {
+	// Check the secret key to ensure the request came from the correct sender
+	if (!data.secret || data.secret !== config.secret) {
+		throw new Error("Request secret key is incorrect.")
+	}
+	
 	// Define the Joi schema for each property in the data
 	const scheme = Joi.object({
 		task: Joi.string()
             .custom((value, helpers) => {
-                const alphanumeric = new RegExp("^[a-zA-Z0-9.,!?;$\'\"&#: ]*$")
+                const alphanumeric = new RegExp("^[a-zA-Z0-9.,!?;$\'\"&#:“”’ ]*$")
                 if (!alphanumeric.test(value) && !emojiRegex().test(value)) {
                     return helpers.message("Task must only contain letters, numbers, emoji, and punctuation.")
                 }
