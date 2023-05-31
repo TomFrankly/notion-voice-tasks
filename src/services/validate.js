@@ -10,7 +10,7 @@ export function validateUserInput(data) {
 	const scheme = Joi.object({
 		task: Joi.string()
             .custom((value, helpers) => {
-                const alphanumeric = new RegExp("^[a-zA-Z0-9.,!?;$ ]*$")
+                const alphanumeric = new RegExp("^[a-zA-Z0-9.,!?;$\'\"&#: ]*$")
                 if (!alphanumeric.test(value) && !emojiRegex().test(value)) {
                     return helpers.message("Task must only contain letters, numbers, emoji, and punctuation.")
                 }
