@@ -19,15 +19,18 @@ Since tasks typically do not require a lot of words to describe, this workflow u
 
 ## How Does It Work?
 
-Under the hood, this app accepts a POST request sent to its `/task` endpoint. The body must be a JSON object containing three keys: `task` (string), `name` (string), and `date` (ISO 8601 string). Example:
+Under the hood, this app accepts a POST request sent to its `/task` endpoint. The body must be a JSON object containing four keys: `task` (string), `name` (string), `date` (ISO 8601 string), and `secret`. Example:
 
 ```
 {
   task: 'I need to clean my room tomorrow and Tony needs to mount the new hair light for studio design by next wednesday and Mariiss needs to book flight by june 2 and Ransom needs to finish writing the learning hacks script draft by june 10',
   name: 'Thomas Frank',
-  date: '2023-05-25T18:59:56-06:00'
+  date: '2023-05-25T18:59:56-06:00',
+  secret: 'someuniquephrase'
 }
 ```
+
+The `secret` key must match the `NOTION_VOICE_TASKS_SECRET` variable in your `.env` file; otherwise, the request will be rejected. This prevents others from sending requests even if they have the webhook URL.
 
 The `name` property is used to set an assignee when words like "I need to" are used (e.g. you can assign a task to yourself). The `date` property is used to allow for relative due-date assignments (e.g. "I need to do X next Friday). ChatGPT will only know what "next Friday" means if we also include the current date, along with the timezone.
 
