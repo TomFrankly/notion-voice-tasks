@@ -74,6 +74,7 @@ NOTION_PROJECTS_DB =
 NOTION_API_KEY = 
 OPEN_AI_KEY = 
 MAX_TOKENS = 2000
+NOTION_VOICE_TASKS_SECRET =
 ```
 
 Create a new internal integration at your [integrations page](https://www.notion.so/my-integrations). Learn how to do this [here](https://thomasjfrank.com/notion-api-crash-course/#create-a-notion-integration).
