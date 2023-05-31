@@ -36,11 +36,13 @@ function creatNotionObject(
 					},
 				],
 			},
-			Source: {
-				select: {
-					name: source,
-				},
-			},
+			...(source && {
+				Source: {
+					select: {
+						name: source,
+					},
+				}
+			}),
 			...(result.assignee && {
 				Assignee: {
 					people: [
